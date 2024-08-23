@@ -55,3 +55,5 @@ public class NMasGrandes {
         System.out.println("Los " + n + " elementos más grandes son: " + resultado);
     }
 }
+///Este codigo cuenta con complejidad O(n log n) debido a la seleccion aleatoria y la reduccion de la lista al relaizar la 
+///recursividad
