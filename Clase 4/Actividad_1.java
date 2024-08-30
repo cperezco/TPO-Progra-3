@@ -28,7 +28,7 @@ public class Actividad_1 {
     }
 
     public static void main(String[] args) {
-        int montoCambio = 111;
+        int montoCambio = 1110542;
 
         if (cambioExacto(montoCambio)) {
             System.out.println("Es posible dar el cambio exacto.");
