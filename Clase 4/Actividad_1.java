@@ -1,3 +1,16 @@
+/*funcion cambio(monto_a_cambiar)
+	orden de mayor a menor
+	lista denominaciones = lista con las monedas
+
+
+	por cada moneda en la lista
+		si el monto es 0 
+			se devuelve false
+		si el monto de mayor o igual a la moneda
+			se divide el monto por la moneda
+			se actualiza el monto a cambiar
+	se devuelve que el valor a devolver es 0 */
+
 public class Actividad_1 {
     public static boolean cambioExacto(int montoCambio) {
         int[] denominaciones = {100, 50, 20, 10, 5, 1};
@@ -24,4 +37,5 @@ public class Actividad_1 {
         }
     }
 }
+
 
