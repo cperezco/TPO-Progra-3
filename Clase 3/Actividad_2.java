@@ -10,7 +10,7 @@
 //Hipótesis de Inducción
 //Asumimos que el algoritmo funciona correctamente para cualquier cantidad de números en orden
 // hasta acabar los de la lista
-//
+
 //Paso de Inducción
 //Tomando que hace una lectura por cada máximo que busca, hará n búsquedas
 
