@@ -1,3 +1,12 @@
+// **** PSEUDOCODIGO ****
+
+// se crean las listas
+// se llama a la funcion con las listas como parámetros
+// while ( haya espacio libre)
+//     for ( viendo cuál es el objeto que más vale considerando todas las veces que entra en el espacio que queda)
+//         una vez definido se guarda y resta del espacio que queda libre
+//  una vez que no hay más espacio se muestra cuanto valor aporta cada elemento
+
 public class Main {
     public static void main(String[] args) {
         int[] precio = {145,75,23,7,118};
