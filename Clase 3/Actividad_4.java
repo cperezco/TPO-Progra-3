@@ -1,3 +1,35 @@
+/*
+            -- Pseudocódigo --
+function encontrarNMasGrandes(lista, n)
+    Si n == 0 Entonces
+        Retornar lista vacía
+    Fin Si
+    
+    Si tamaño(lista) <= n Entonces
+        Retornar copia de lista
+    Fin Si
+
+    mitad ← tamaño(lista) / 2
+    primeraMitad ← sublista(lista, 0, mitad)
+    segundaMitad ← sublista(lista, mitad, tamaño(lista))
+
+    mayoresPrimeraMitad ← encontrarNMasGrandes(primeraMitad, n)
+    mayoresSegundaMitad ← encontrarNMasGrandes(segundaMitad, n)
+
+    combinados ← concatenar(mayoresPrimeraMitad, mayoresSegundaMitad)
+
+    ordenar(combinados, descendente)
+
+    Retornar sublista(combinados, 0, n)
+Fin funcion
+
+Progrma principal
+    lista = lista[]
+    n = numero
+    resultado ← encontrarNMasGrandes(lista, n)
+    imprimir resultado
+Fin programa
+*/
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
