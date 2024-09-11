@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class ej {
+public class Actividad_3 {
     private static final int INF = Integer.MAX_VALUE;
 
     public static void algPrim(int numVertices, List<List<int[]>> grafo) {
