@@ -7,7 +7,7 @@ public class Actividad_1_ProgramacioDinamica {
         for (int i = 1; i <= sizeCostos; i++) {
             for (int j = 0; j <= presupuesto; j++) {
                 if (costos[i - 1] <= j) {
-                    dp[i][j] = Math.max(matrix[i - 1][j], matrix[i - 1][j - costos[i - 1]] + rendimientos[i - 1]);
+                    matrix[i][j] = Math.max(matrix[i - 1][j], matrix[i - 1][j - costos[i - 1]] + rendimientos[i - 1]);
                 } else {
                     matrix[i][j] = matrix[i - 1][j];
                 }
