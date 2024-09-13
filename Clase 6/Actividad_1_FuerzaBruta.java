@@ -1,4 +1,4 @@
-public class ej2 {
+public class Actividad_1_FuerzaBruta {
     static class objeto {
         int peso;
         int valor;
