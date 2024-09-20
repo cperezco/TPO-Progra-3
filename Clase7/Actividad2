@@ -1,0 +1,83 @@
+public class FloydWarshallLogistica {
+    static final int INF = 99999;
+
+    public static void main(String[] args) {
+        FloydWarshallLogistica fw = new FloydWarshallLogistica();
+
+        int[][] graph = new int[][] {
+                {0, 15, INF, 7},
+                {INF, 0, 10, INF},
+                {INF, INF, 0, 4},
+                {INF, INF, INF, 0}
+        };
+
+        int V = graph.length;
+        fw.floydWarshall(graph, V, 1);
+    }
+
+    void floydWarshall(int[][] graph, int V, int centroPrincipal) {
+        int[][] dist = new int[V][V];
+
+        for (int i = 0; i < V; i++) {
+            for (int j = 0; j < V; j++) {
+                dist[i][j] = graph[i][j];
+            }
+        }
+
+        for (int k = 0; k < V; k++) {
+            for (int i = 0; i < V; i++) {
+                for (int j = 0; j < V; j++) {
+                    if (dist[i][k] + dist[k][j] < dist[i][j]) {
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                    }
+                }
+            }
+        }
+
+        printSolution(dist, V);
+
+        printMinDeliveryTimes(dist, V, centroPrincipal);
+
+        checkNegativeCycles(dist, V);
+    }
+
+    void printSolution(int[][] dist, int V) {
+        System.out.println("Matriz de distancias más cortas entre cada par de centros de distribución:");
+        for (int i = 0; i < V; i++) {
+            System.out.print("C" + (i + 1) + "  ");
+        }
+        System.out.println();
+
+        for (int i = 0; i < V; i++) {
+            System.out.print("C" + (i + 1) + "  ");
+            for (int j = 0; j < V; j++) {
+                if (dist[i][j] == INF) {
+                    System.out.print("INF ");
+                } else {
+                    System.out.print(dist[i][j] + "   ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    void printMinDeliveryTimes(int[][] dist, int V, int centroPrincipal) {
+        System.out.println("\nTiempos mínimos de entrega desde el Centro de Distribución C" + centroPrincipal + ":");
+
+        for (int j = 0; j < V; j++) {
+            if (dist[centroPrincipal - 1][j] == INF) {
+                System.out.println("C" + centroPrincipal + " -> C" + (j + 1) + ": INF (no hay ruta disponible)");
+            } else {
+                System.out.println("C" + centroPrincipal + " -> C" + (j + 1) + ": " + dist[centroPrincipal - 1][j] + " minutos");
+            }
+        }
+    }
+
+    void checkNegativeCycles(int[][] dist, int V) {
+        for (int i = 0; i < V; i++) {
+            if (dist[i][i] < 0) {
+                System.out.println("Se detectó un ciclo negativo en el centro de distribución C" + (i + 1));
+            }
+        }
+    }
+}
