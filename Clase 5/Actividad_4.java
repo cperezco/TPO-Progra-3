@@ -1,34 +1,42 @@
 import java.util.*;
 
-public class Dijkstra {
+public class Dijkstra 
+{
 
-    static class Edge {
-        int destino;
-        int distancia;
+    static class Edge 
+    {
+        private int destino;
+        private int distancia;
 
-        Edge(int destino, int distancia) {
+        // Constructor
+        Edge(int destino, int distancia) 
+        {
             this.destino = destino;
             this.distancia = distancia;
         }
     }
 
     static class Graph {
-        int vertices;
-        List<List<Edge>> adjList;
+        private int vertices;
+        private List<List<Edge>> adjList;
 
+        // Constructor
         Graph(int vertices) {
             this.vertices = vertices;
             adjList = new ArrayList<>(vertices);
-            for (int i = 0; i < vertices; i++) {
+            for (int i = 0; i < vertices; i++) 
+            {
                 adjList.add(new ArrayList<>());
             }
         }
 
-        void addEdge(int source, int destino, int distancia) {
+        void addEdge(int source, int destino, int distancia) 
+        {
             adjList.get(source).add(new Edge(destino, distancia));
         }
 
-        void dijkstra(int startVertex) {
+        void dijkstra(int startVertex) 
+        {
             int[] distances = new int[vertices];
             Arrays.fill(distances, Integer.MAX_VALUE);
             distances[startVertex] = 0;
@@ -44,11 +52,13 @@ public class Dijkstra {
                 if (visited[u]) continue;
                 visited[u] = true;
 
-                for (Edge edge : adjList.get(u)) {
+                for (Edge edge : adjList.get(u)) 
+                {
                     int v = edge.destino;
                     int distancia = edge.distancia;
 
-                    if (!visited[v] && distances[u] + distancia < distances[v]) {
+                    if (!visited[v] && distances[u] + distancia < distances[v]) 
+                    {
                         distances[v] = distances[u] + distancia;
                         pq.add(new Edge(v, distances[v]));
                     }
@@ -58,15 +68,18 @@ public class Dijkstra {
             printSolution(distances, startVertex);
         }
 
-        void printSolution(int[] distances, int startVertex) {
+        void printSolution(int[] distances, int startVertex) 
+        {
             System.out.println("Distancia desde el vértice " + startVertex);
-            for (int i = 0; i < vertices; i++) {
+            for (int i = 0; i < vertices; i++) 
+            {
                 System.out.println("La distancia hasta " + i + " es " + distances[i]+ " kilómetros.");
             }
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         int vertices = 6;
         Graph graph = new Graph(vertices);
 
