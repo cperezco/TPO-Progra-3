@@ -1,40 +1,58 @@
 import java.util.*;
 
-public class RedSocial {
+public class RedSocial 
+{
 
+    // Utilizamos grafos para generar una interaccion entre los distintos usuarios de la red social.
     private Map<String, List<String>> grafo;
 
-    public RedSocial() {
+    // Constructor
+    public RedSocial() 
+    {
         this.grafo = new HashMap<>();
     }
 
-    public void agregarUsuario(String nombre) {
-        grafo.putIfAbsent(nombre, new ArrayList<>());
+    public void agregarUsuario(String nombre) 
+    {
+        grafo.putIfAbsent(nombre, new ArrayList<>()); // putIfAbstent evita que se agreguen usuarios repetidos.
+                                                      // En este caso, si dos usuarios con un mismo nombre intentan utilizar la red,
+                                                      // no podran hacerlo. Se sugiere usar IDs aleatorios para usos en produción.
     }
 
-    public void seguir(String seguidor, String seguido) {
-        if (grafo.containsKey(seguidor) && grafo.containsKey(seguido)) {
+    public void seguir(String seguidor, String seguido) 
+    {
+        if (grafo.containsKey(seguidor) && grafo.containsKey(seguido)) 
+        {
             List<String> listaSeguidos = grafo.get(seguidor);
-            if (!listaSeguidos.contains(seguido)) {
+            
+            // Chequeamos que la lista NO contenga al seguido, y en ese caso, lo agregamos.
+            if (!listaSeguidos.contains(seguido)) 
+            {
                 listaSeguidos.add(seguido);
             }
         }
     }
 
-    public void dejarDeSeguir(String seguidor, String seguido) {
-        if (grafo.containsKey(seguidor) && grafo.containsKey(seguido)) {
+    public void dejarDeSeguir(String seguidor, String seguido) 
+    {
+        if (grafo.containsKey(seguidor) && grafo.containsKey(seguido)) 
+        {
             grafo.get(seguidor).remove(seguido);
         }
     }
 
-    public List<String> listaSeguidos(String nombre) {
+    public List<String> listaSeguidos(String nombre) 
+    {
         return grafo.getOrDefault(nombre, new ArrayList<>());
     }
 
-    public List<String> listaSeguidoresDe(String nombre) {
+    public List<String> listaDeSeguidores(String nombre) 
+    {
         List<String> seguidores = new ArrayList<>();
-        for (Map.Entry<String, List<String>> entrada : grafo.entrySet()) {
-            if (entrada.getValue().contains(nombre)) {
+        for (Map.Entry<String, List<String>> entrada : grafo.entrySet()) 
+        {
+            if (entrada.getValue().contains(nombre)) 
+            {
                 seguidores.add(entrada.getKey());
             }
         }
@@ -42,12 +60,14 @@ public class RedSocial {
     }
 
     public void mostrarGrafo() {
-        for (Map.Entry<String, List<String>> entrada : grafo.entrySet()) {
+        for (Map.Entry<String, List<String>> entrada : grafo.entrySet()) 
+        {
             System.out.println(entrada.getKey() + " sigue a: " + entrada.getValue());
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         RedSocial redSocial = new RedSocial();
 
         redSocial.agregarUsuario("Alice");
@@ -63,7 +83,7 @@ public class RedSocial {
         redSocial.mostrarGrafo();
 
         System.out.println("Usuarios que Alice sigue: " + redSocial.listaSeguidos("Alice"));
-        System.out.println("Usuarios que siguen a David: " + redSocial.listaSeguidoresDe("David"));
+        System.out.println("Usuarios que siguen a David: " + redSocial.listaDeSeguidores("David"));
 
         redSocial.dejarDeSeguir("Alice", "Charlie");
         System.out.println("Usuarios que Alice sigue después de dejar de seguir a Charlie: " + redSocial.listaSeguidos("Alice"));
