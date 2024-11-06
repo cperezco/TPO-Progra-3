@@ -1,54 +1,99 @@
-class Almacen:
-    def __init__(self, id, nombre):
-        self.id = id
-        self.nombre = nombre
+import java.util.*;
 
-class Grafo:
-    def __init__(self):
-        self.almacenes = {}  
-        self.adyacencia = {} 
+class Almacen {
+    int id;
+    String nombre;
 
-    def agregar_almacen(self, id, nombre):
-        almacen = Almacen(id, nombre)
-        self.almacenes[id] = almacen
-        self.adyacencia[id] = []
+    public Almacen(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
 
-    def conectar_almacenes(self, id1, id2):
-        self.adyacencia[id1].append(id2)
-        self.adyacencia[id2].append(id1)
+    @Override
+    public String toString() {
+        return nombre;
+    }
+}
 
-    def dfs(self, inicio, visitado=None):
-        if visitado is None:
-            visitado = set()
-        print(self.almacenes[inicio].nombre)
-        visitado.add(inicio)
-        for vecino in self.adyacencia[inicio]:
-            if vecino not in visitado:
-                self.dfs(vecino, visitado)
+class Grafo {
+    private Map<Almacen, List<Almacen>> adjList;
 
-    def bfs(self, inicio):
-        visitado = set()
-        cola = [inicio]
-        visitado.add(inicio)
+    public Grafo() {
+        adjList = new HashMap<>();
+    }
 
-        while cola:
-            nodo = cola.pop(0)
-            print(self.almacenes[nodo].nombre)
-            for vecino in self.adyacencia[nodo]:
-                if vecino not in visitado:
-                    visitado.add(vecino)
-                    cola.append(vecino)
+    public void agregarAlmacen(Almacen almacen) {
+        adjList.putIfAbsent(almacen, new ArrayList<>());
+    }
 
-# Ejemplo de uso
-red = Grafo()
-red.agregar_almacen(0, "Almacen Central")
-red.agregar_almacen(1, "Almacen Norte")
-red.agregar_almacen(2, "Almacen Sur")
-red.conectar_almacenes(0, 1)
-red.conectar_almacenes(0, 2)
+    public void conectarAlmacenes(Almacen a, Almacen b) {
+        adjList.get(a).add(b);
+        adjList.get(b).add(a); // Conexión bidireccional
+    }
 
-print("DFS desde Almacen Central:")
-red.dfs(0)
+    // DFS Recursivo
+    public void DFS(Almacen almacenInicial) {
+        Set<Almacen> visitados = new HashSet<>();
+        DFSRecursivo(almacenInicial, visitados);
+    }
 
-print("\nBFS desde Almacen Central:")
-red.bfs(0)
+    private void DFSRecursivo(Almacen almacen, Set<Almacen> visitados) {
+        visitados.add(almacen);
+        System.out.println("Visitando almacen: " + almacen);
+
+        for (Almacen vecino : adjList.get(almacen)) {
+            if (!visitados.contains(vecino)) {
+                DFSRecursivo(vecino, visitados);
+            }
+        }
+    }
+
+    // BFS
+    public void BFS(Almacen almacenInicial) {
+        Queue<Almacen> cola = new LinkedList<>();
+        Set<Almacen> visitados = new HashSet<>();
+
+        cola.add(almacenInicial);
+        visitados.add(almacenInicial);
+
+        while (!cola.isEmpty()) {
+            Almacen actual = cola.poll();
+            System.out.println("Visitando almacen: " + actual);
+
+            for (Almacen vecino : adjList.get(actual)) {
+                if (!visitados.contains(vecino)) {
+                    cola.add(vecino);
+                    visitados.add(vecino);
+                }
+            }
+        }
+    }
+}
+
+// Ejemplo de uso
+public class Main {
+    public static void main(String[] args) {
+        Grafo redAlmacenes = new Grafo();
+
+        Almacen a1 = new Almacen(1, "Almacen A");
+        Almacen a2 = new Almacen(2, "Almacen B");
+        Almacen a3 = new Almacen(3, "Almacen C");
+        Almacen a4 = new Almacen(4, "Almacen D");
+
+        redAlmacenes.agregarAlmacen(a1);
+        redAlmacenes.agregarAlmacen(a2);
+        redAlmacenes.agregarAlmacen(a3);
+        redAlmacenes.agregarAlmacen(a4);
+
+        redAlmacenes.conectarAlmacenes(a1, a2);
+        redAlmacenes.conectarAlmacenes(a2, a3);
+        redAlmacenes.conectarAlmacenes(a3, a4);
+        redAlmacenes.conectarAlmacenes(a4, a1);
+
+        System.out.println("DFS desde Almacen A:");
+        redAlmacenes.DFS(a1);
+
+        System.out.println("\nBFS desde Almacen A:");
+        redAlmacenes.BFS(a1);
+    }
+}
