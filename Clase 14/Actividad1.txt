@@ -1,1 +1,10 @@
-
+1-
+El backtracking es una técnica recursiva que explora todas las opciones posibles haciendo la selección de cada una a la vez. En este caso esta técnica coloca una persona en una fila y busca encontrar una columna segura donde el la fila siguiente. Si hay algún problema se dice que retrocede quitando el última persona que coloco y probando en la siguiente columna
+2-
+Cuando el algoritmo encuentra una configuración válida en la que todas las reinas están colocadas sin conflictos, registra esta configuración como una solución. Si el algoritmo no puede colocar una reina en una posición segura en una fila, retrocede a la fila anterior, quita la última reina colocada y prueba la siguiente columna. Esto continúa hasta encontrar todas las soluciones posibles o hasta que ya no haya más posibilidades.
+3-
+Cuando el algoritmo retrocede, quita la última reina colocada e intenta una columna diferente en la fila anterior,este proceso se puede visualizar como los marcos de pila que retroceden un nivel hacia arriba.
+4-
+Para modificar el algoritmo y que maneje un tablero de 8x8 (N=8), simplemente se debe establecer N=8 en el código. Aumentar N incrementará el número de configuraciones posibles, lo cual puede afectar significativamente el tiempo de ejecución debido al crecimiento exponencial de posibilidades en el backtracking
+5-
+El método isSafe verifica si colocar una reina en una posición dada causaría conflictos,es crucial porque garantiza que la solución respete las restricciones del problema. 
